@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yashashvi — Editorial Digital Portfolio & Resume</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        creamBg: '#FDFBF7',
+                        sandCard: '#F4EFEA',
+                        sandBorder: '#E6DDD0',
+                        espressoText: '#2C2623',
+                        espressoMuted: '#6E635B',
+                        terracotta: '#8C7A70',
+                        goldAccent: '#C5A880'
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FDFBF7;
+            color: #2C2623;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+        .editorial-grid {
+            background-image: radial-gradient(rgba(140, 122, 112, 0.08) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .card-hover {
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -15px rgba(44, 38, 35, 0.12);
+            border-color: #C5A880;
+        }
+        .editorial-shadow {
+            box-shadow: 0 12px 35px -10px rgba(44, 38, 35, 0.08);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #resume-modal-content, #resume-modal-content * {
+                visibility: visible;
+            }
+            #resume-modal-content {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 20px;
+                background: #ffffff !important;
+                color: #000000 !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-creamBg text-espressoText antialiased selection:bg-[#C5A880] selection:text-creamBg">
+
+    <!-- Toast Notification Banner -->
+    <div id="toast-banner" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-sandCard text-espressoText px-5 py-3 rounded-xl shadow-2xl border border-sandBorder flex items-center gap-3 text-sm font-medium">
+            <i class="fa-solid fa-circle-check text-goldAccent"></i>
+            <span id="toast-message">Copied to clipboard!</span>
+        </div>
+    </div>
+
+    <!-- Sticky Navigation -->
+    <header class="sticky top-0 z-40 bg-creamBg/90 backdrop-blur-md border-b border-sandBorder">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Monogram -->
+                <a href="#top" class="flex items-center gap-3 group">
+                    <span class="w-10 h-10 rounded-xl bg-espressoText text-creamBg font-serif font-bold text-xl flex items-center justify-center shadow-md group-hover:bg-goldAccent transition-colors">Y</span>
+                    <div>
+                        <span class="font-serif font-bold tracking-widest text-base sm:text-lg text-espressoText block leading-tight">YASHASHVI</span>
+                        <span class="text-[10px] tracking-widest uppercase text-espressoMuted block">TAPMI BBA Honours</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center gap-6 text-xs uppercase tracking-widest font-medium text-espressoMuted">
+                    <a href="#about" class="hover:text-espressoText transition-colors">About</a>
+                    <a href="#education" class="hover:text-espressoText transition-colors">Education</a>
+                    <a href="#leadership" class="hover:text-espressoText transition-colors">Leadership</a>
+                    <a href="#skills" class="hover:text-espressoText transition-colors">Skills</a>
+                    <a href="#projects" class="hover:text-espressoText transition-colors">Projects</a>
+                    <a href="#contact" class="hover:text-espressoText transition-colors">Contact</a>
+                    <button onclick="openResumeModal()" class="px-4 py-2.5 rounded-xl bg-goldAccent text-creamBg hover:bg-espressoText transition-colors inline-flex items-center gap-2 shadow-sm font-semibold cursor-pointer">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <span>Resume</span>
+                    </button>
+                </nav>
+
+                <!-- Mobile Action -->
+                <div class="flex items-center gap-2 md:hidden">
+                    <button onclick="openResumeModal()" aria-label="Open Resume" class="px-3.5 py-2 rounded-xl bg-goldAccent text-creamBg shadow-sm font-semibold text-xs inline-flex items-center gap-1.5 cursor-pointer">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <span>Resume</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main id="top">
+
+        <!-- 1. HERO SECTION -->
+        <section class="relative border-b border-sandBorder editorial-grid py-20 sm:py-32">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sandCard border border-sandBorder text-xs font-semibold tracking-wider uppercase text-goldAccent editorial-shadow mx-auto">
+                    <span class="w-2 h-2 rounded-full bg-goldAccent animate-pulse"></span>
+                    TAPMI Bengaluru • BBA Honours
+                </div>
+
+                <h1 class="font-serif text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight text-espressoText leading-[1.05]">
+                    Yashashvi
+                </h1>
+
+                <p class="font-serif italic text-xl sm:text-2xl lg:text-3xl text-espressoMuted leading-snug max-w-3xl mx-auto">
+                    BBA Honours Student | Digital Content Creator & Business Strategist at TAPMI Bengaluru
+                </p>
+
+                <!-- Contact & Details Strip -->
+                <div class="max-w-2xl mx-auto bg-sandCard border border-sandBorder rounded-2xl p-5 sm:p-6 editorial-shadow space-y-3.5 text-left">
+                    <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-sandBorder/70">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-xl bg-goldAccent text-creamBg flex items-center justify-center shadow-sm">
+                                <i class="fa-solid fa-envelope text-sm"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <span class="text-[10px] uppercase tracking-widest font-semibold text-espressoMuted block">Student Email</span>
+                                <span class="text-xs sm:text-sm font-semibold text-espressoText truncate block">yashashvi.tapmiblr2026@learner.manipal.edu</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-espressoMuted">
+                            <i class="fa-solid fa-location-dot text-goldAccent"></i>
+                            <span>Bengaluru, Karnataka</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap items-center justify-between gap-3 text-xs text-espressoMuted">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-brands fa-instagram text-goldAccent text-sm"></i>
+                            <a href="https://instagram.com/yashashvisharan" target="_blank" rel="noopener noreferrer" class="hover:text-espressoText font-medium transition-colors">@yashashvisharan (4.6M+ views, 5K+ followers)</a>
+                        </div>
+                        <div class="font-medium text-espressoText">
+                            Phone: +91 7004357381
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+                    <a href="#projects" class="px-7 py-4 rounded-xl bg-espressoText text-creamBg font-semibold text-sm hover:bg-goldAccent transition-colors inline-flex items-center gap-2 shadow-md">
+                        <span>Explore 5 Case Studies</span>
+                        <i class="fa-solid fa-arrow-down text-xs"></i>
+                    </a>
+                    <button onclick="openResumeModal()" class="px-7 py-4 rounded-xl bg-sandCard border border-sandBorder text-espressoText font-medium text-sm hover:border-goldAccent transition-colors inline-flex items-center gap-2 shadow-sm cursor-pointer">
+                        <i class="fa-regular fa-file-lines text-goldAccent"></i>
+                        <span>Interactive Resume Modal</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs opacity-70"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. ABOUT ME & EDUCATION TIMELINE -->
+        <section id="about" class="py-16 sm:py-24 border-b border-sandBorder bg-creamBg">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+
+                    <!-- About Me Column -->
+                    <div class="lg:col-span-5 flex flex-col justify-between bg-sandCard border border-sandBorder rounded-3xl p-6 sm:p-8 editorial-shadow">
+                        <div>
+                            <div class="flex items-center gap-2.5 text-goldAccent text-xs font-semibold uppercase tracking-widest mb-3">
+                                <i class="fa-regular fa-user"></i>
+                                <span>Introduction & Overview</span>
+                            </div>
+                            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-espressoText mb-4">
+                                About Me
+                            </h2>
+                            <p class="text-espressoMuted text-base sm:text-[17px] leading-relaxed mb-4">
+                                I am Yashashvi, an undergraduate student pursuing BBA Honours at TAPMI Bengaluru. Transitioning from a rigorous pure science foundation (Carmel Junior College, Jamshedpur, ISC 90.4%), I combine quantitative analysis with creative digital storytelling and AI-driven business problem solving.
+                            </p>
+                            <p class="text-espressoMuted text-sm sm:text-base leading-relaxed">
+                                As an active digital content creator and strategist with over 4.6M+ views and 5K+ organic followers (<a href="https://instagram.com/yashashvisharan" target="_blank" rel="noopener noreferrer" class="text-espressoText font-semibold underline">@yashashvisharan</a>), alongside social impact research with the InAmigos Foundation, I bridge the gap between creative media production and executive business analytics.
+                            </p>
+                        </div>
+
+                        <div class="mt-8 pt-6 border-t border-sandBorder flex items-center justify-between text-xs text-espressoMuted">
+                            <span class="font-medium flex items-center gap-1.5">
+                                <i class="fa-solid fa-location-dot text-goldAccent"></i>
+                                Bengaluru, Karnataka
+                            </span>
+                            <button onclick="openResumeModal()" class="text-xs font-semibold text-espressoText hover:underline inline-flex items-center gap-1 cursor-pointer">
+                                <i class="fa-regular fa-file-lines"></i> View Resume
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Education Background Column -->
+                    <div id="education" class="lg:col-span-7">
+                        <div class="mb-8">
+                            <div class="flex items-center gap-2.5 text-goldAccent text-xs font-semibold uppercase tracking-widest mb-2">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                                <span>Academic Journey</span>
+                            </div>
+                            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-espressoText">
+                                Education Background
+                            </h2>
+                            <p class="font-serif italic text-xl text-espressoMuted mt-1">
+                                Pure Science Foundation to Strategic Business Management
+                            </p>
+                        </div>
+
+                        <!-- Timeline Cards -->
+                        <div class="space-y-5 relative before:content-[''] before:absolute before:left-5 before:top-6 before:bottom-6 before:w-px before:bg-sandBorder">
+                            <!-- Item 1 -->
+                            <div class="relative pl-12">
+                                <span class="absolute left-3.5 top-5 w-3.5 h-3.5 rounded-full bg-goldAccent ring-4 ring-creamBg"></span>
+                                <div class="bg-sandCard border border-sandBorder rounded-2xl p-6 card-hover">
+                                    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                                        <span class="text-xs font-semibold uppercase tracking-wider text-goldAccent bg-creamBg px-3 py-1 rounded-full border border-sandBorder">
+                                            Undergraduate • 2024 - Present
+                                        </span>
+                                        <span class="text-xs font-medium text-espressoMuted">TAPMI Bengaluru</span>
+                                    </div>
+                                    <h4 class="font-bold text-lg text-espressoText mb-1">Bachelor of Business Administration (BBA Honours)</h4>
+                                    <p class="text-espressoMuted text-sm leading-relaxed">
+                                        Pursuing BBA Honours at T. A. Pai Management Institute (TAPMI), Bengaluru, focusing on data analytics, market research, and modern management frameworks.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Item 2 -->
+                            <div class="relative pl-12">
+                                <span class="absolute left-3.5 top-5 w-3.5 h-3.5 rounded-full bg-espressoMuted ring-4 ring-creamBg"></span>
+                                <div class="bg-sandCard border border-sandBorder rounded-2xl p-6 card-hover">
+                                    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                                        <span class="text-xs font-semibold uppercase tracking-wider text-goldAccent bg-creamBg px-3 py-1 rounded-full border border-sandBorder">
+                                            Senior Secondary • Carmel Junior College, Jamshedpur
+                                        </span>
+                                        <span class="text-sm font-bold text-espressoText">90.4% (ISC)</span>
+                                    </div>
+                                    <h4 class="font-bold text-lg text-espressoText mb-1">Class XII ISC (Pure Science)</h4>
+                                    <p class="text-espressoMuted text-sm leading-relaxed">
+                                        Completed Senior Secondary Class XII under ISC with Pure Science, building strong analytical and mathematical foundations.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Item 3 -->
+                            <div class="relative pl-12">
+                                <span class="absolute left-3.5 top-5 w-3.5 h-3.5 rounded-full bg-espressoMuted ring-4 ring-creamBg"></span>
+                                <div class="bg-sandCard border border-sandBorder rounded-2xl p-6 card-hover">
+                                    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                                        <span class="text-xs font-semibold uppercase tracking-wider text-goldAccent bg-creamBg px-3 py-1 rounded-full border border-sandBorder">
+                                            Secondary • Carmel Junior College, Jamshedpur
+                                        </span>
+                                        <span class="text-sm font-bold text-espressoText">89.9% (ICSE)</span>
+                                    </div>
+                                    <h4 class="font-bold text-lg text-espressoText mb-1">Class X ICSE</h4>
+                                    <p class="text-espressoMuted text-sm leading-relaxed">
+                                        Finished Secondary Class X under ICSE with 89.9%, demonstrating consistent academic excellence and discipline.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. LEADERSHIP & EXTRACURRICULARS -->
+        <section id="leadership" class="py-16 sm:py-24 bg-sandCard border-b border-sandBorder">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+                    <div>
+                        <span class="text-xs font-semibold uppercase tracking-widest text-goldAccent block mb-2">
+                            Governance, Impact & Campus Experience
+                        </span>
+                        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-espressoText">
+                            Leadership and Experience
+                        </h2>
+                        <p class="font-serif italic text-xl sm:text-2xl text-espressoMuted mt-1">
+                            House Captain, President, Vice President & TAPMI Group 10 Lead
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Carmel Junior College Roles -->
+                    <div class="bg-creamBg border border-sandBorder rounded-3xl p-7 card-hover flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-goldAccent text-creamBg flex items-center justify-center mb-5 shadow-sm">
+                                <i class="fa-solid fa-award text-lg"></i>
+                            </div>
+                            <span class="text-xs font-semibold uppercase tracking-wider text-goldAccent block mb-1.5">Carmel Junior College, Jamshedpur</span>
+                            <h3 class="font-serif text-2xl font-bold text-espressoText mb-3">Student Governance</h3>
+                            <ul class="space-y-2.5 text-espressoMuted text-sm leading-relaxed">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-goldAccent mt-1"></i>
+                                    <span><strong>House Captain:</strong> Directed house discipline, sports coordination, and inter-house cultural competitions.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-goldAccent mt-1"></i>
+                                    <span><strong>President, Electoral Literacy Club:</strong> Headed voter awareness initiatives and civic education drives.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-goldAccent mt-1"></i>
+                                    <span><strong>Vice President, Science Club:</strong> Organized science exhibitions, quizzes, and analytical reasoning workshops.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-sandBorder text-xs font-semibold text-goldAccent">
+                            Exemplary Leadership & Responsibility
+                        </div>
+                    </div>
+
+                    <!-- TAPMI Bengaluru -->
+                    <div class="bg-creamBg border border-sandBorder rounded-3xl p-7 card-hover flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-goldAccent text-creamBg flex items-center justify-center mb-5 shadow-sm">
+                                <i class="fa-solid fa-users-rectangle text-lg"></i>
+                            </div>
+                            <span class="text-xs font-semibold uppercase tracking-wider text-goldAccent block mb-1.5">TAPMI Bengaluru (2024 - Present)</span>
+                            <h3 class="font-serif text-2xl font-bold text-espressoText mb-3">Academic & Project Leadership</h3>
+                            <ul class="space-y-2.5 text-espressoMuted text-sm leading-relaxed">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-goldAccent mt-1"></i>
+                                    <span><strong>Group 10 Lead:</strong> Orchestrated team deliverables, research synthesis, and animated video production for coursework projects.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-goldAccent mt-1"></i>
+                                    <span><strong>Member, Dance & Cultural Clubs:</strong> Actively participated in choreography, stage productions, and inter-collegiate cultural performances.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-sandBorder text-xs font-semibold text-goldAccent">
+                            T. A. Pai Management Institute
+                        </div>
+                    </div>
+
+                    <!-- Social Impact Research -->
+                    <div class="bg-creamBg border border-sandBorder rounded-3xl p-7 card-hover flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-goldAccent text-creamBg flex items-center justify-center mb-5 shadow-sm">
+                                <i class="fa-solid fa-hand-holding-heart text-lg"></i>
+                            </div>
+                            <span class="text-xs font-semibold uppercase tracking-wider text-goldAccent block mb-1.5">InAmigos Foundation</span>
+                            <h3 class="font-serif text-2xl font-bold text-espressoText mb-3">Social Impact & Research</h3>
+                            <ul class="space-y-2.5 text-espressoMuted text-sm leading-relaxed">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-goldAccent mt-1"></i>
+                                    <span><strong>Social Impact Intern:</strong> Conducted field research, community outreach campaigns, and compiled comprehensive donor retention reports.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-goldAccent mt-1"></i>
+                                    <span><strong>Awareness Campaigns:</strong> Coordinated educational and welfare initiatives for underprivileged communities.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-sandBorder text-xs font-semibold text-goldAccent">
+                            Philanthropy & NGO Strategy
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. SKILLS & CREATIVE PORTFOLIO (Featuring Embedded Images) -->
+        <section id="skills" class="py-16 sm:py-24 bg-creamBg border-b border-sandBorder">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                <!-- Section Header -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+                    <div>
+                        <span class="text-xs font-semibold uppercase tracking-widest text-goldAccent block mb-2">
+                            Technical Competencies & Creative Portfolio
+                        </span>
+                        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-espressoText">
+                            Technical Skills & Creative Portfolio
+                        </h2>
+                        <p class="font-serif italic text-xl sm:text-2xl text-espressoMuted mt-1">
+                            Dance & Music, Photography/Videography, Editing & Content Creation, Business & Data Strategy
+                        </p>
+                    </div>
+
+                    <!-- Creator Handle Badge -->
+                    <a href="https://instagram.com/yashashvisharan" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-sandCard border border-sandBorder hover:border-goldAccent transition-colors self-start md:self-auto editorial-shadow">
+                        <div class="w-10 h-10 rounded-xl bg-goldAccent text-creamBg flex items-center justify-center shadow">
+                            <i class="fa-brands fa-instagram text-lg"></i>
+                        </div>
+                        <div>
+                            <span class="block text-[10px] uppercase tracking-wider text-espressoMuted">Digital Creator Handle</span>
+                            <span class="font-semibold text-sm text-espressoText">@yashashvisharan (4.6M+ views, 5K+ followers)</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- 4 Interactive Skill Cards Grid (With Embedded Images as Requested) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+
+                    <!-- Skill Area 1: Dance and Music -->
+                    <div class="bg-sandCard border border-sandBorder rounded-3xl overflow-hidden card-hover flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-64 overflow-hidden border-b border-sandBorder">
+                                <img
+                                    src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=800&q=80"
+                                    alt="Dance and Music"
+                                    class="w-full h-full object-cover"
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-t from-espressoText/60 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-4 left-4 w-12 h-12 rounded-2xl bg-goldAccent text-creamBg flex items-center justify-center shadow-md">
+                                    <i class="fa-solid fa-music text-lg"></i>
+                                </div>
+                            </div>
+                            <div class="p-8 pb-4">
+                                <span class="text-xs font-semibold uppercase tracking-wider text-goldAccent block mb-1.5">01 • Performing Arts</span>
+                                <h3 class="font-serif text-2xl font-bold text-espressoText mb-3">
+                                    Dance and Music
+                                </h3>
+                                <p class="text-espressoMuted text-base leading-relaxed mb-4">
+                                    Certified Junior Diploma in Synthesizer Division with First Division Honors (5+ years of rigorous musical training). Award-winning Traditional and Contemporary Dancer active in collegiate cultural productions.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="px-8 pb-8 pt-2">
+                            <div class="pt-4 border-t border-sandBorder flex flex-wrap items-center gap-2 text-xs font-medium text-espressoMuted">
+                                <span class="px-3 py-1.5 rounded-lg bg-creamBg border border-sandBorder">Synthesizer (First Division Honors)</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-creamBg border border-sandBorder">Award-winning Dancer</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skill Area 2: Photography and Videography (Embedded Image 1: Outdoor Portrait in Black Suit among Trees) -->
+                    <div class="bg-sandCard border border-sandBorder rounded-3xl overflow-hidden card-hover flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-72 overflow-hidden border-b border-sandBorder bg-espressoText">
+                                <img
+                                    src="yashii intro new.jpeg"
+                                    alt="Yashashvi - Photography and Videography"
+                                    class="w-full h-full object-cover object-top"
+                                    onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80'"
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-t from-espressoText/70 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-4 left-4 w-12 h-12 rounded-2xl bg-goldAccent text-creamBg flex items-center justify-center shadow-md">
+                                    <i class="fa-solid fa-camera-retro text-lg"></i>
+                                </div>
+                                <span class="absolute top-4 right-4 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md text-[11px] font-semibold text-white border border-white/20">
+                                    Outdoor Portrait Study
+                                </span>
+                            </div>
+                            <div class="p-8 pb-4">
+                                <span class="text-xs font-semibold uppercase tracking-wider text-goldAccent block mb-1.5">02 • Visual Production</span>
+                                <h3 class="font-serif text-2xl font-bold text-espressoText mb-3">
+                                    Photography and Videography
+                                </h3>
+                                <p class="text-espressoMuted text-base leading-relaxed mb-4">
+                                    Proficient in professional framing, camera operation, natural lighting setup, and visual composition for cinematic storytelling and documentary production.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="px-8 pb-8 pt-2">
+                            <div class="pt-4 border-t border-sandBorder flex flex-wrap items-center gap-2 text-xs font-medium text-espressoMuted">
+                                <span class="px-3 py-1.5 rounded-lg bg-creamBg border border-sandBorder">Lighting & Composition</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-creamBg border border-sandBorder">Cinematic Framing</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skill Area 3: Editing and Content Creation (Embedded Image 2: Laptop Working Photo at TAPMI Event) -->
+                    <div class="bg-sandCard border border-sandBorder rounded-3xl overflow-hidden card-hover flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-72 overflow-hidden border-b border-sandBorder bg-espressoText">
+                                <img
+                                    src="second photo.jpeg"
+                                    alt="Yashashvi Working on Laptop at TAPMI Event"
+                                    class="w-full h-full object-cover object-center"
+                                    onerror="this.src='https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80'"
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-t from-espressoText/70 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-4 left-4 w-12 h-12 rounded-2xl bg-goldAccent text-creamBg flex items-center justify-center shadow-md">
+                                    <i class="fa-solid fa-video text-lg"></i>
+                                </div>
+                                <span class="absolute top-4 right-4 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md text-[11px] font-semibold text-white border border-white/20">
+                                    TAPMI Event Operations
+                                </span>
+                            </div>
+                            <div class="p-8 pb-4">
+                                <span class="text-xs font-semibold uppercase tracking-wider text-goldAccent block mb-1.5">03 • Digital Strategy & Reach</span>
+                                <h3 class="font-serif text-2xl font-bold text-espressoText mb-3">
+                                    Editing and Content Creation
+                                    <span class="block text-xs font-semibold text-goldAccent mt-1">4.6M+ Views & 5K+ Followers</span>
+                                </h3>
+                                <p class="text-espressoMuted text-base leading-relaxed mb-4">
+                                    Skilled in video editing, color grading, pacing, and digital content strategy with a proven organic reach of over 4.6M+ views and 5,000+ followers on Instagram (<a href="https://instagram.com/yashashvisharan" target="_blank" rel="noopener noreferrer" class="text-espressoText font-semibold underline">@yashashvisharan</a>).
+                                </p>
+                            </div>
+                        </div>
+                        <div class="px-8 pb-8 pt-2">
+                            <div class="pt-4 border-t border-sandBorder flex flex-wrap items-center gap-2 text-xs font-medium text-espressoMuted">
+                                <a href="https://instagram.com/yashashvisharan" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg bg-goldAccent text-creamBg hover:bg-espressoText transition-colors flex items-center gap-1.5">
+                                    <i class="fa-brands fa-instagram"></i> @yashashvisharan
+                                </a>
+                                <span class="px-3 py-1.5 rounded-lg bg-creamBg border border-sandBorder">Post-Production Editing</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skill Area 4: Business and Data Strategy (Embedded Image 3: Recording/Interviewing at TAPMI Bengaluru) -->
+                    <div class="bg-sandCard border border-sandBorder rounded-3xl overflow-hidden card-hover flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-72 overflow-hidden border-b border-sandBorder bg-espressoText">
+                                <img
+                                    src="photo skill new.jpeg"
+                                    alt="Yashashvi Recording and Interviewing at TAPMI Bengaluru"
+                                    class="w-full h-full object-cover object-center"
+                                    onerror="this.src='https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80'"
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-t from-espressoText/70 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-4 left-4 w-12 h-12 rounded-2xl bg-goldAccent text-creamBg flex items-center justify-center shadow-md">
+                                    <i class="fa-solid fa-chart-pie text-lg"></i>
+                                </div>
+                                <span class="absolute top-4 right-4 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md text-[11px] font-semibold text-white border border-white/20">
+                                    TAPMI Studio Interview
+                                </span>
+                            </div>
+                            <div class="p-8 pb-4">
+                                <span class="text-xs font-semibold uppercase tracking-wider text-goldAccent block mb-1.5">04 • Analytics & Management</span>
+                                <h3 class="font-serif text-2xl font-bold text-espressoText mb-3">
+                                    Business and Data Strategy
+                                </h3>
+                                <p class="text-espressoMuted text-base leading-relaxed mb-4">
+                                    Expertise in data modelling, Power BI, advanced Excel (Power Query, Dashboards), quantitative analysis, and InAmigos Foundation donor retention reporting frameworks.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="px-8 pb-8 pt-2">
+                            <div class="pt-4 border-t border-sandBorder flex flex-wrap items-center gap-2 text-xs font-medium text-espressoMuted">
+                                <span class="px-3 py-1.5 rounded-lg bg-creamBg border border-sandBorder">Power BI & Excel Dashboards</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-creamBg border border-sandBorder">InAmigos Donor Analytics</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. PROJECT PORTFOLIO (5 CASE STUDIES) -->
+        <section id="projects" class="py-16 sm:py-24 bg-sandCard border-b border-sandBorder">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                <!-- Section Title -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+                    <div>
+                        <span class="text-xs font-semibold uppercase tracking-widest text-goldAccent block mb-2">
+                            BBA Semester Coursework, Research & Analytics
+                        </span>
+                        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-espressoText tracking-tight">
+                            PROJECT PORTFOLIO
+                        </h2>
+                        <p class="font-serif italic text-xl sm:text-2xl text-espressoMuted mt-1">
+                            5 Applied Case Studies across Analytics, Marketing, AI & Quantitative Modelling
+                        </p>
+                    </div>
+                    <p class="text-xs text-espressoMuted bg-creamBg px-4 py-2.5 rounded-xl border border-sandBorder self-start md:self-auto shadow-sm">
+                        <i class="fa-solid fa-hand-pointer text-goldAccent mr-1.5"></i>
+                        Click any project card to open full case study modal
+                    </p>
+                </div>
+
+                <!-- Interactive Filter Tabs -->
+                <div class="flex items-center gap-2.5 overflow-x-auto no-scrollbar pb-4 mb-10 border-b border-sandBorder">
+                    <button onclick="filterProjects('all')" data-filter="all" class="filter-btn active shrink-0 px-5 py-3 rounded-xl text-xs sm:text-sm font-semibold bg-espressoText text-creamBg transition-colors shadow-sm cursor-pointer">
+                        All Projects (5)
+                    </button>
+                    <button onclick="filterProjects('p1')" data-filter="p1" class="filter-btn shrink-0 px-5 py-3 rounded-xl text-xs sm:text-sm font-semibold bg-creamBg text-espressoText border border-sandBorder hover:border-goldAccent transition-colors cursor-pointer">
+                        1. Alakh Pandey
+                    </button>
+                    <button onclick="filterProjects('p2')" data-filter="p2" class="filter-btn shrink-0 px-5 py-3 rounded-xl text-xs sm:text-sm font-semibold bg-creamBg text-espressoText border border-sandBorder hover:border-goldAccent transition-colors cursor-pointer">
+                        2. EduGuard AI
+                    </button>
+                    <button onclick="filterProjects('p3')" data-filter="p3" class="filter-btn shrink-0 px-5 py-3 rounded-xl text-xs sm:text-sm font-semibold bg-creamBg text-espressoText border border-sandBorder hover:border-goldAccent transition-colors cursor-pointer">
+                        3. Algorithm to Appetite
+                    </button>
+                    <button onclick="filterProjects('p4')" data-filter="p4" class="filter-btn shrink-0 px-5 py-3 rounded-xl text-xs sm:text-sm font-semibold bg-creamBg text-espressoText border border-sandBorder hover:border-goldAccent transition-colors cursor-pointer">
+                        4. Barbeque Nation
+                    </button>
+                    <button onclick="filterProjects('p5')" data-filter="p5" class="filter-btn shrink-0 px-5 py-3 rounded-xl text-xs sm:text-sm font-semibold bg-creamBg text-espressoText border border-sandBorder hover:border-goldAccent transition-colors cursor-pointer">
+                        5. ChaiNest Cafés
+                    </button>
+                </div>
+
+                <!-- Projects Grid -->
+                <div id="projects-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+                    <!-- PROJECT 1: Alakh Pandey -->
+                    <article data-project="p1" onclick="openProjectModal('p1')" class="project-card cursor-pointer bg-creamBg border border-sandBorder rounded-3xl overflow-hidden card-hover flex flex-col justify-between group">
+                        <div>
+                            <div class="relative h-64 bg-espressoText text-white p-8 flex flex-col justify-between overflow-hidden border-b border-sandBorder">
+                                <img
+                                    src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80"
+                                    alt="Alakh Pandey Rebrand"
+                                    class="absolute inset-0 w-full h-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-105"
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-t from-espressoText/90 via-espressoText/50 to-espressoText/20 pointer-events-none"></div>
+                                <div class="relative z-10 flex items-center justify-between">
+                                    <span class="px-3 py-1 rounded-lg bg-white/20 backdrop-blur-md text-[11px] font-semibold uppercase tracking-wider text-white">
+                                        Language, Literature & Rhetoric
+                                    </span>
+                                    <span class="text-xs text-sandBorder font-mono">01 / 05</span>
+                                </div>
+                                <div class="relative z-10 my-auto">
+                                    <p class="text-[11px] uppercase tracking-[0.25em] text-goldAccent font-semibold mb-1">PhysicsWallah Growth & Impact Analysis</p>
+                                    <h4 class="font-serif text-3xl font-bold tracking-wide text-white">ALAKH PANDEY REBRANDING</h4>
+                                </div>
+                            </div>
+
+                            <div class="p-8">
+                                <span class="inline-block text-xs font-semibold uppercase tracking-wider text-goldAccent mb-2">
+                                    Case Study 1 - EdTech Impact
+                                </span>
+                                <h3 class="font-serif text-2xl font-bold text-espressoText group-hover:text-goldAccent transition-colors mb-3">
+                                    Decoding and Rebranding Alakh Pandey — Rhetorical Analysis & Founder Persona
+                                </h3>
+                                <p class="text-espressoMuted text-sm leading-relaxed mb-4">
+                                    Undertook exhaustive rhetorical analysis of Alakh Pandey's communication style, emotional appeal (pathos), and founder ethos. Formulated a strategic rebranding framework to position his public narrative for future scale.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="px-8 py-4 bg-sandCard border-t border-sandBorder flex items-center justify-between text-xs font-semibold text-espressoText group-hover:bg-goldAccent group-hover:text-creamBg transition-colors">
+                            <span>Read Full Case Study</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </article>
+
+                    <!-- PROJECT 2: EduGuard AI -->
+                    <article data-project="p2" onclick="openProjectModal('p2')" class="project-card cursor-pointer bg-creamBg border border-sandBorder rounded-3xl overflow-hidden card-hover flex flex-col justify-between group">
+                        <div>
+                            <div class="relative h-64 bg-espressoText text-white p-8 flex flex-col justify-between overflow-hidden border-b border-sandBorder">
+                                <img
+                                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80"
+                                    alt="EduGuard AI Student Retention Agent"
+                                    class="absolute inset-0 w-full h-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-105"
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-t from-espressoText/90 via-espressoText/50 to-espressoText/20 pointer-events-none"></div>
+                                <div class="relative z-10 flex items-center justify-between">
+                                    <span class="px-3 py-1 rounded-lg bg-emerald-800/60 backdrop-blur-md border border-emerald-400/40 text-[11px] font-semibold text-emerald-100 flex items-center gap-1.5">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                                        Educational Governance & Engagement
+                                    </span>
+                                    <span class="text-xs text-sandBorder font-mono">02 / 05</span>
+                                </div>
+
+                                <div class="relative z-10 my-auto bg-black/40 backdrop-blur-md border border-white/20 rounded-2xl p-4">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="font-serif font-bold text-lg text-white">EduGuard AI Agent</span>
+                                        <span class="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500/30 text-amber-200 border border-amber-400/40">Early Warning Active</span>
+                                    </div>
+                                    <p class="text-xs text-gray-300">AI-powered educational governance & student engagement workflow.</p>
+                                </div>
+                            </div>
+
+                            <div class="p-8">
+                                <span class="inline-block text-xs font-semibold uppercase tracking-wider text-goldAccent mb-2">
+                                    Case Study 2 - AI Workflow Automation
+                                </span>
+                                <h3 class="font-serif text-2xl font-bold text-espressoText group-hover:text-goldAccent transition-colors mb-3">
+                                    EduGuard — AI Student Retention Agent & Early Warning System
+                                </h3>
+                                <p class="text-espressoMuted text-sm leading-relaxed mb-4">
+                                    Designed an autonomous workflow automation agent to address mid-year student dropouts in coaching institutes by mapping attendance and score-drop triggers to automated parent alerts, counselor bookings, and adaptive study plans.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="px-8 py-4 bg-sandCard border-t border-sandBorder flex items-center justify-between text-xs font-semibold text-espressoText group-hover:bg-goldAccent group-hover:text-creamBg transition-colors">
+                            <span>Read Full Case Study</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </article>
+
+                    <!-- PROJECT 3: Algorithm to Appetite -->
+                    <article data-project="p3" onclick="openProjectModal('p3')" class="project-card cursor-pointer bg-creamBg border border-sandBorder rounded-3xl overflow-hidden card-hover flex flex-col justify-between group">
+                        <div>
+                            <div class="relative h-64 bg-espressoText text-white p-8 flex flex-col justify-between overflow-hidden border-b border-sandBorder">
+                                <img
+                                    src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80"
+                                    alt="From Algorithm to Appetite Field Study"
+                                    class="absolute inset-0 w-full h-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-105"
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-t from-espressoText/90 via-espressoText/50 to-espressoText/20 pointer-events-none"></div>
+                                <div class="relative z-10 flex items-center justify-between">
+                                    <span class="px-3 py-1 rounded-lg bg-amber-800/60 backdrop-blur-md border border-amber-400/40 text-[11px] font-semibold text-amber-100 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-film"></i>
+                                        Media Documentary & Field Study
+                                    </span>
+                                    <span class="text-xs text-sandBorder font-mono">03 / 05</span>
+                                </div>
+
+                                <div class="relative z-10 my-auto">
+                                    <span class="text-[11px] uppercase tracking-widest text-amber-200 font-semibold block mb-1">Church Street, Indiranagar, Koramangala</span>
+                                    <h4 class="font-serif italic text-3xl font-bold text-white leading-tight">
+                                        "From Algorithm to Appetite"
+                                    </h4>
+                                </div>
+                            </div>
+
+                            <div class="p-8">
+                                <span class="inline-block text-xs font-semibold uppercase tracking-wider text-goldAccent mb-2">
+                                    Case Study 3 - Documentary Concept Note
+                                </span>
+                                <h3 class="font-serif text-2xl font-bold text-espressoText group-hover:text-goldAccent transition-colors mb-3">
+                                    "From Algorithm to Appetite" — Food Recommendation & Cultural Identity Documentary Concept Note
+                                </h3>
+                                <p class="text-espressoMuted text-sm leading-relaxed mb-4">
+                                    Conceptualised the central premise and conducted extensive field research across Church Street, Indiranagar, and Koramangala on how recommendation algorithms shape urban food culture and traditional cuisine identities.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="px-8 py-4 bg-sandCard border-t border-sandBorder flex items-center justify-between text-xs font-semibold text-espressoText group-hover:bg-goldAccent group-hover:text-creamBg transition-colors">
+                            <span>Read Full Case Study</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </article>
+
+                    <!-- PROJECT 4: Barbeque Nation -->
+                    <article data-project="p4" onclick="openProjectModal('p4')" class="project-card cursor-pointer bg-creamBg border border-sandBorder rounded-3xl overflow-hidden card-hover flex flex-col justify-between group">
+                        <div>
+                            <div class="relative h-64 bg-espressoText text-white p-8 flex flex-col justify-between overflow-hidden border-b border-sandBorder">
+                                <img
+                                    src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=900&q=80"
+                                    alt="Barbeque Nation Buffet Pricing"
+                                    class="absolute inset-0 w-full h-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-105"
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-t from-espressoText/90 via-espressoText/50 to-espressoText/20 pointer-events-none"></div>
+                                <div class="relative z-10 flex items-center justify-between">
+                                    <span class="px-3 py-1 rounded-lg bg-orange-800/60 backdrop-blur-md border border-orange-400/40 text-[11px] font-semibold text-orange-100">
+                                        Customer Experience & Dining Strategy
+                                    </span>
+                                    <span class="text-xs text-sandBorder font-mono">04 / 05</span>
+                                </div>
+
+                                <div class="relative z-10 my-auto">
+                                    <div class="inline-block px-3 py-1 rounded bg-goldAccent text-creamBg font-bold tracking-wider text-xs uppercase mb-2 shadow-sm">
+                                        BARBEQUE NATION
+                                    </div>
+                                    <h4 class="font-serif text-3xl font-bold text-white">
+                                        Customer Experience & Loyalty Optimization
+                                    </h4>
+                                </div>
+                            </div>
+
+                            <div class="p-8">
+                                <span class="inline-block text-xs font-semibold uppercase tracking-wider text-goldAccent mb-2">
+                                    Case Study 4 - CVP & Loyalty Strategy
+                                </span>
+                                <h3 class="font-serif text-2xl font-bold text-espressoText group-hover:text-goldAccent transition-colors mb-3">
+                                    Barbeque Nation — Customer Experience & Loyalty Optimization Analysis
+                                </h3>
+                                <p class="text-espressoMuted text-sm leading-relaxed mb-4">
+                                    Formulated cost-volume-profit (CVP) and loyalty retention frameworks to optimise dining turnover, enhance table utilization, and maximize customer lifetime value across outlets.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="px-8 py-4 bg-sandCard border-t border-sandBorder flex items-center justify-between text-xs font-semibold text-espressoText group-hover:bg-goldAccent group-hover:text-creamBg transition-colors">
+                            <span>Read Full Case Study</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </article>
+
+                    <!-- PROJECT 5: ChaiNest Cafés -->
+                    <article data-project="p5" onclick="openProjectModal('p5')" class="project-card lg:col-span-2 cursor-pointer bg-creamBg border border-sandBorder rounded-3xl overflow-hidden card-hover flex flex-col justify-between group">
+                        <div class="grid grid-cols-1 lg:grid-cols-12">
+                            <div class="relative lg:col-span-5 bg-espressoText text-white p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-sandBorder overflow-hidden">
+                                <img
+                                    src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80"
+                                    alt="ChaiNest Cafés QSR Expansion Strategy"
+                                    class="absolute inset-0 w-full h-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-105"
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-t from-espressoText/90 via-espressoText/60 to-espressoText/30 pointer-events-none"></div>
+
+                                <div class="relative z-10 flex items-center justify-between mb-4">
+                                    <span class="px-3 py-1 rounded-lg bg-amber-800/60 backdrop-blur-md border border-amber-400/40 text-[11px] font-semibold text-amber-100 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-chart-line"></i>
+                                        QSR Expansion & Localized Menu Strategy
+                                    </span>
+                                    <span class="text-xs text-sandBorder font-mono">05 / 05</span>
+                                </div>
+
+                                <div class="relative z-10 bg-black/40 backdrop-blur-md border border-white/20 rounded-2xl p-5 space-y-2 my-auto">
+                                    <span class="text-[10px] uppercase tracking-wider text-amber-200 block">QSR Strategy (2025)</span>
+                                    <span class="font-serif font-bold text-xl text-white block">ChaiNest Cafés Expansion Strategy</span>
+                                </div>
+                            </div>
+
+                            <div class="lg:col-span-7 p-8 sm:p-10 flex flex-col justify-between">
+                                <div>
+                                    <span class="inline-block text-xs font-semibold uppercase tracking-wider text-goldAccent mb-2">
+                                        Case Study 5 - QSR Expansion & Localized Menu Strategy
+                                    </span>
+                                    <h3 class="font-serif text-2xl sm:text-3xl font-bold text-espressoText group-hover:text-goldAccent transition-colors mb-3">
+                                        ChaiNest Cafés — QSR Expansion & Localized Menu Strategy Analysis
+                                    </h3>
+                                    <p class="text-espressoMuted text-sm sm:text-base leading-relaxed mb-6">
+                                        Consolidated, cleaned, and structured multi-store QSR transactional datasets using Power Query and advanced Excel formulas. Engineered interactive Power BI dashboards with dynamic slicers and KPI cards to evaluate localized menu preferences, peak hours, and store-level revenue targets.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="px-8 sm:px-10 py-4 bg-sandCard border-t border-sandBorder flex items-center justify-between text-xs font-semibold text-espressoText group-hover:bg-goldAccent group-hover:text-creamBg transition-colors">
+                            <span>Read Full Case Study</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. CONTACT & FOOTER SECTION -->
+        <footer id="contact" class="bg-creamBg text-espressoText py-16 sm:py-24 border-t border-sandBorder">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+
+                    <div class="lg:col-span-6 space-y-6">
+                        <span class="inline-block px-4 py-1.5 rounded-full bg-sandCard text-goldAccent text-xs font-semibold uppercase tracking-widest border border-sandBorder">
+                            Let's Connect & Collaborate
+                        </span>
+                        <h2 class="font-serif text-4xl sm:text-5xl font-bold text-espressoText leading-tight">
+                            Bringing data and creativity together.
+                        </h2>
+                        <p class="font-serif italic text-2xl text-espressoMuted">
+                            From science that's pure, to managing a business.
+                        </p>
+
+                        <div class="pt-2 flex flex-wrap gap-4">
+                            <button onclick="openResumeModal()" class="inline-flex items-center gap-3 px-7 py-4 rounded-2xl bg-goldAccent hover:bg-espressoText text-creamBg font-semibold text-sm sm:text-base transition-colors shadow-lg cursor-pointer">
+                                <i class="fa-regular fa-file-lines text-lg text-creamBg"></i>
+                                <span>Open Interactive Resume Modal</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-6">
+                        <div class="bg-sandCard border border-sandBorder rounded-3xl p-8 space-y-5 editorial-shadow">
+                            <h3 class="font-serif text-2xl font-bold text-espressoText border-b border-sandBorder pb-4">
+                                Contact Information
+                            </h3>
+
+                            <!-- Phone Number -->
+                            <div class="flex items-center justify-between gap-3 p-4 rounded-2xl bg-creamBg border border-sandBorder">
+                                <div class="flex items-center gap-4 min-w-0">
+                                    <div class="w-11 h-11 rounded-xl bg-goldAccent text-creamBg flex items-center justify-center shrink-0 shadow-sm">
+                                        <i class="fa-solid fa-phone text-base"></i>
+                                    </div>
+                                    <div class="min-w-0">
+                                        <span class="text-[10px] uppercase tracking-wider text-espressoMuted block">Phone Number</span>
+                                        <span class="text-sm sm:text-base font-semibold text-espressoText truncate block">+91 7004357381</span>
+                                    </div>
+                                </div>
+                                <button onclick="copyText('+91 7004357381', 'Phone number copied!')" class="px-4 py-2 rounded-xl bg-sandCard/60 hover:bg-goldAccent hover:text-creamBg text-espressoText text-xs font-medium transition-colors shrink-0 cursor-pointer">
+                                    <i class="fa-regular fa-copy mr-1"></i> Copy
+                                </button>
+                            </div>
+
+                            <!-- Official Student Email -->
+                            <div class="flex items-center justify-between gap-3 p-4 rounded-2xl bg-creamBg border border-sandBorder">
+                                <div class="flex items-center gap-4 min-w-0">
+                                    <div class="w-11 h-11 rounded-xl bg-goldAccent text-creamBg flex items-center justify-center shrink-0 shadow-sm">
+                                        <i class="fa-solid fa-envelope text-base"></i>
+                                    </div>
+                                    <div class="min-w-0">
+                                        <span class="text-[10px] uppercase tracking-wider text-espressoMuted block">Student Email</span>
+                                        <span class="text-xs sm:text-sm font-semibold text-espressoText truncate block">yashashvi.tapmiblr2026@learner.manipal.edu</span>
+                                    </div>
+                                </div>
+                                <button onclick="copyText('yashashvi.tapmiblr2026@learner.manipal.edu', 'Email copied!')" class="px-4 py-2 rounded-xl bg-sandCard/60 hover:bg-goldAccent hover:text-creamBg text-espressoText text-xs font-medium transition-colors shrink-0 cursor-pointer">
+                                    <i class="fa-regular fa-copy mr-1"></i> Copy
+                                </button>
+                            </div>
+
+                            <!-- Instagram Handle -->
+                            <div class="flex items-center justify-between gap-3 p-4 rounded-2xl bg-creamBg border border-sandBorder">
+                                <div class="flex items-center gap-4 min-w-0">
+                                    <div class="w-11 h-11 rounded-xl bg-goldAccent text-creamBg flex items-center justify-center shrink-0 shadow-sm">
+                                        <i class="fa-brands fa-instagram text-lg"></i>
+                                    </div>
+                                    <div class="min-w-0">
+                                        <span class="text-[10px] uppercase tracking-wider text-espressoMuted block">Instagram / Portfolio Handle</span>
+                                        <span class="text-sm sm:text-base font-semibold text-espressoText truncate block">@yashashvisharan (4.6M+ views, 5K+ followers)</span>
+                                    </div>
+                                </div>
+                                <button onclick="copyText('@yashashvisharan', 'Instagram handle copied!')" class="px-4 py-2 rounded-xl bg-sandCard/60 hover:bg-goldAccent hover:text-creamBg text-espressoText text-xs font-medium transition-colors shrink-0 cursor-pointer">
+                                    <i class="fa-regular fa-copy mr-1"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mt-16 pt-8 border-t border-sandBorder flex flex-col sm:flex-row items-center justify-between text-xs text-espressoMuted gap-4">
+                    <p>© 2026 Yashashvi. All rights reserved. TAPMI Bengaluru BBA Honours Portfolio.</p>
+                    <div class="flex items-center gap-4">
+                        <a href="#top" class="hover:text-espressoText transition-colors">Back to Top ↑</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- 7. INTERACTIVE RESUME MODAL -->
+    <div id="resume-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-6 overflow-y-auto">
+        <div class="bg-creamBg rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-goldAccent text-espressoText">
+            <div class="sticky top-0 z-30 bg-creamBg/95 backdrop-blur-md px-6 py-4 border-b border-goldAccent flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-3 h-3 rounded-full bg-goldAccent"></span>
+                    <h3 class="font-serif text-xl font-bold text-espressoText">Official Resume — Yashashvi</h3>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="printResume()" class="px-4 py-2 rounded-xl bg-espressoText hover:bg-goldAccent text-white text-xs font-semibold transition-colors inline-flex items-center gap-1.5 shadow-sm cursor-pointer">
+                        <i class="fa-solid fa-print"></i>
+                        <span>Print / PDF</span>
+                    </button>
+                    <button onclick="downloadResumeText()" class="px-4 py-2 rounded-xl bg-goldAccent hover:bg-espressoText text-white text-xs font-semibold transition-colors inline-flex items-center gap-1.5 shadow-sm cursor-pointer">
+                        <i class="fa-solid fa-download"></i>
+                        <span>Download Text</span>
+                    </button>
+                    <button onclick="closeResumeModal()" class="w-10 h-10 rounded-full bg-espressoText hover:bg-goldAccent text-white flex items-center justify-center transition-colors cursor-pointer">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="resume-modal-content" class="p-6 sm:p-12 bg-creamBg text-espressoText space-y-8 font-sans">
+                <!-- Header -->
+                <div class="text-center border-b-2 border-goldAccent/40 pb-6">
+                    <h2 class="font-serif text-4xl sm:text-5xl font-bold tracking-tight text-espressoText mb-1">YASHASHVI</h2>
+                    <p class="text-sm sm:text-base font-medium text-espressoMuted mb-2">
+                        BBA Honours Student | Digital Content Creator & Business Strategist at TAPMI Bengaluru
+                    </p>
+                    <p class="text-xs sm:text-sm text-gray-700 flex flex-wrap items-center justify-center gap-3">
+                        <span><i class="fa-solid fa-phone text-espressoMuted mr-1"></i> +91 7004357381</span>
+                        <span>•</span>
+                        <span><i class="fa-solid fa-location-dot text-espressoMuted mr-1"></i> Bengaluru, Karnataka</span>
+                        <span>•</span>
+                        <span><i class="fa-regular fa-envelope text-espressoMuted mr-1"></i> yashashvi.tapmiblr2026@learner.manipal.edu</span>
+                        <span>•</span>
+                        <span><i class="fa-brands fa-instagram text-espressoMuted mr-1"></i> @yashashvisharan</span>
+                    </p>
+                </div>
+
+                <!-- Education -->
+                <div class="space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-espressoText bg-goldAccent/15 px-3 py-1.5 rounded-lg border border-goldAccent/40 inline-block">
+                        Education Background
+                    </h3>
+                    <div class="space-y-3 pt-1 text-sm text-gray-800">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                            <div>
+                                <h4 class="font-bold text-base text-espressoText">T. A. Pai Management Institute (TAPMI), Bengaluru</h4>
+                                <p>Undergraduate First Year Student - Bachelor of Business Administration (BBA Honours)</p>
+                            </div>
+                            <span class="text-xs font-semibold text-espressoText bg-goldAccent/20 px-3 py-1 rounded-full border border-goldAccent/40 self-start sm:self-auto">2024 - Present</span>
+                        </div>
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pt-2">
+                            <div>
+                                <h4 class="font-bold text-base text-espressoText">Carmel Junior College, Jamshedpur</h4>
+                                <p>Class 12th ISC (Pure Science): <strong class="text-espressoText">90.4%</strong> | Class 10th ICSE: <strong class="text-espressoText">89.9%</strong></p>
+                            </div>
+                            <span class="text-xs font-semibold text-espressoText bg-goldAccent/20 px-3 py-1 rounded-full border border-goldAccent/40 self-start sm:self-auto">Completed</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience, Leadership and Campus Involvement -->
+                <div class="space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-espressoText bg-goldAccent/15 px-3 py-1.5 rounded-lg border border-goldAccent/40 inline-block">
+                        Experience, Leadership and Campus Involvement
+                    </h3>
+                    <div class="space-y-3 pt-1 text-sm text-gray-800">
+                        <div>
+                            <h4 class="font-bold text-espressoText">Carmel Junior College, Jamshedpur — Student Governance</h4>
+                            <p><strong>House Captain:</strong> Directed house discipline, sports coordination, and inter-house cultural competitions.</p>
+                            <p><strong>President, Electoral Literacy Club:</strong> Headed voter awareness initiatives and civic education drives.</p>
+                            <p><strong>Vice President, Science Club:</strong> Organized science exhibitions, quizzes, and analytical reasoning workshops.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-espressoText">TAPMI Bengaluru — Academic & Project Leadership</h4>
+                            <p><strong>Group 10 Lead:</strong> Orchestrated team deliverables, research synthesis, and animated video production for coursework projects.</p>
+                            <p><strong>Member, Dance & Cultural Clubs:</strong> Actively participated in choreography, stage productions, and inter-collegiate cultural performances.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-espressoText">InAmigos Foundation — Social Impact & Research Intern</h4>
+                            <p>Conducted field research, community outreach campaigns, and compiled comprehensive donor retention reports for philanthropic initiatives.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Projects and Analytics -->
+                <div class="space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-espressoText bg-goldAccent/15 px-3 py-1.5 rounded-lg border border-goldAccent/40 inline-block">
+                        Key Projects and Analytics
+                    </h3>
+                    <div class="space-y-3 pt-1 text-sm text-gray-800">
+                        <div>
+                            <h4 class="font-bold text-espressoText">ChaiNest Cafés — QSR Expansion & Localized Menu Strategy Analysis</h4>
+                            <p>Consolidated, cleaned, and structured multi-store transactional datasets using Power Query and advanced Excel formulas. Engineered interactive Power BI dashboards with dynamic slicers and KPI cards.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-espressoText">EduGuard AI Student Retention Agent & Early Warning System</h4>
+                            <p>Designed an autonomous workflow automation agent addressing mid-year student dropouts in Bengaluru coaching institutes by mapping attendance and score-drop triggers to automated parent alerts and counselor bookings.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-espressoText">Barbeque Nation — Customer Experience & Loyalty Optimization Analysis</h4>
+                            <p>Formulated cost-volume-profit (CVP) and loyalty retention frameworks to optimise dining turnover, enhance table utilization, and maximize customer lifetime value across outlets.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-espressoText">"From Algorithm to Appetite" — Documentary Concept Note & Field Study</h4>
+                            <p>Conceptualised central premise and conducted extensive field research across Church Street, Indiranagar, and Koramangala on how recommendation algorithms shape urban food culture.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-espressoText">Alakh Pandey Rebranding — Rhetorical Analysis & Founder Persona</h4>
+                            <p>Undertook exhaustive rhetorical analysis of Alakh Pandey's communication style, emotional appeal (pathos), and founder ethos. Formulated strategic rebranding frameworks.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Skills and Creative Portfolio -->
+                <div class="space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-espressoText bg-goldAccent/15 px-3 py-1.5 rounded-lg border border-goldAccent/40 inline-block">
+                        Technical Skills and Creative Portfolio
+                    </h3>
+                    <div class="space-y-2 text-sm text-gray-800">
+                        <p><strong>Business and Analytics:</strong> Data Modelling, Power BI, Advanced Excel (Power Query, Dashboards), Quantitative Analysis, Cost Optimisation, InAmigos Donor Retention Report.</p>
+                        <p><strong>Media and Production:</strong> Videography, Video Editing, Photography, Content Strategy, Visual Storytelling (4.6M+ views, 5K+ followers @yashashvisharan).</p>
+                        <p><strong>Performing Arts:</strong> Certified Junior Diploma in Synthesizer Division (First Division Honors, 5+ yrs), Award-winning Traditional/Contemporary Dancer.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sticky bottom-0 bg-creamBg px-6 py-4 border-t border-goldAccent flex items-center justify-between">
+                <span class="text-xs text-gray-700 font-medium">Yashashvi • TAPMI Bengaluru BBA Honours</span>
+                <button onclick="closeResumeModal()" class="px-5 py-2 rounded-xl bg-espressoText hover:bg-goldAccent text-xs font-semibold text-white transition-colors cursor-pointer">
+                    Close Resume
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FULL SCREEN CASE STUDY MODAL -->
+    <div id="project-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4 sm:p-6 overflow-y-auto">
+        <div class="bg-sandCard rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-sandBorder text-espressoText">
+            <div class="sticky top-0 z-20 bg-sandCard/95 backdrop-blur-md px-6 py-4 border-b border-sandBorder flex items-center justify-between">
+                <div>
+                    <span id="modal-tag" class="text-xs font-semibold uppercase tracking-wider text-goldAccent">Project Category</span>
+                    <h3 id="modal-title" class="font-serif text-xl sm:text-2xl font-bold text-espressoText">Project Title</h3>
+                </div>
+                <button onclick="closeProjectModal()" class="w-10 h-10 rounded-full bg-creamBg hover:bg-goldAccent hover:text-white text-espressoText flex items-center justify-center transition-colors border border-sandBorder cursor-pointer">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div class="p-6 sm:p-8 space-y-6">
+                <div id="modal-visual" class="relative rounded-2xl p-6 sm:p-8 text-white overflow-hidden bg-espressoText">
+                    <!-- Populated dynamically -->
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-goldAccent mb-2">Executive Overview & Contributions</h4>
+                    <p id="modal-description" class="text-espressoMuted text-base sm:text-lg leading-relaxed">Description...</p>
+                </div>
+            </div>
+
+            <div class="bg-creamBg px-6 py-4 border-t border-sandBorder flex items-center justify-between">
+                <button id="modal-prev-btn" class="px-4 py-2 rounded-xl bg-sandCard border border-sandBorder hover:border-goldAccent text-xs font-semibold text-espressoText transition-colors inline-flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Previous Project</span>
+                </button>
+                <button id="modal-next-btn" class="px-4 py-2 rounded-xl bg-goldAccent hover:bg-espressoText text-creamBg text-xs font-semibold transition-colors inline-flex items-center gap-2 cursor-pointer">
+                    <span>Next Project</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        const projectData = {
+            p1: {
+                tag: "Project 1 - Language, Literature and Rhetoric",
+                title: "Decoding and Rebranding Alakh Pandey — Rhetorical Analysis & Founder Persona",
+                description: "Undertook exhaustive rhetorical analysis of Alakh Pandey's communication style, emotional appeal (pathos), and founder ethos. Formulated a strategic rebranding framework to position his public narrative for future scale.\n\nKey Contributions & Analysis:\n• Rhetorical Analysis: Dismantling triggers of ethos, pathos and logos across EdTech leadership.\n• Rebrand Strategy: Developed modern positioning and visual identity frameworks.\n• Visual Presentation: Put together the final structured analytical presentation.",
+                visualBg: "bg-espressoText",
+                visualBadge: "Rhetorical Analysis & Brand Strategy",
+                visualHeadline: "ALAKH PANDEY REBRAND",
+                visualSub: "Deconstructing ethos, pathos and logos in edtech leadership"
+            },
+            p2: {
+                tag: "Project 2 - Technology Literacy for Managers",
+                title: "EduGuard — AI Student Retention Agent & Early Warning System",
+                description: "Designed an autonomous workflow automation agent to address mid-year student dropouts in Bengaluru coaching institutes by mapping attendance and score-drop triggers to automated parent alerts, counselor bookings, and adaptive study plans.\n\nKey Contributions & Architecture:\n• Trigger Mapping: Automated alerts linked directly to attendance and quiz score drops.\n• Outreach Flow: Developed logic for parent SMS updates and instant counselor appointment booking.\n• Presentation Deck: Created comprehensive product walkthrough visuals.",
+                visualBg: "bg-espressoText",
+                visualBadge: "Automated Student Support",
+                visualHeadline: "EduGuard AI Agent",
+                visualSub: "Early-warning intervention for coaching institutes"
+            },
+            p3: {
+                tag: "Project 3 - Diversity, Inclusivity & Rootedness",
+                title: "\"From Algorithm to Appetite\" — Food Recommendation & Cultural Identity Documentary Concept Note",
+                description: "Conceptualised the central premise and conducted extensive field research across Church Street, Indiranagar, and Koramangala on how recommendation algorithms shape urban food culture and traditional cuisine identities.\n\nKey Contributions & Field Research:\n• Central Idea: Conceptualised and pitched the core documentary premise on algorithmic food culture.\n• Field Interviews: Interviewed restaurant owners and patrons across Church Street, Indiranagar, and Koramangala.\n• Field Diary: Authored and completed the qualitative study on digital curation versus traditional dining.",
+                visualBg: "bg-espressoText",
+                visualBadge: "DIR Field Research",
+                visualHeadline: "\"From Algorithm to Appetite\"",
+                visualSub: "Church Street, Indiranagar, Koramangala — AI, Food & Cultural Identity"
+            },
+            p4: {
+                tag: "Project 4 - Business Mathematics & Quantitative Modelling",
+                title: "Barbeque Nation — Customer Experience & Loyalty Optimization Analysis",
+                description: "Formulated cost-volume-profit (CVP) and loyalty retention frameworks to optimise dining turnover, enhance table utilization, and maximize customer lifetime value across outlets.\n\nKey Contributions & Quantitative Modelling:\n• Model Formulation: Set up objective functions, profit variables, and capacity constraints.\n• Cost & Margin Analysis: Analysed buffet food costing, wastage metrics, and fixed overheads.\n• Optimisation Insights: Computed optimal pricing thresholds and loyalty frameworks.",
+                visualBg: "bg-espressoText",
+                visualBadge: "CVP & Loyalty Strategy",
+                visualHeadline: "BARBEQUE NATION",
+                visualSub: "Customer Experience & Loyalty Optimization Analysis"
+            },
+            p5: {
+                tag: "Project 5 - QSR Expansion & Localized Menu Strategy",
+                title: "ChaiNest Cafés — QSR Expansion & Localized Menu Strategy Analysis",
+                description: "Consolidated, cleaned, and structured multi-store transactional datasets using Power Query and advanced Excel formulas to ensure reporting accuracy. Engineered interactive Power BI dashboards with dynamic slicers and KPI cards to evaluate localized menu preferences, peak hours, and store-level revenue targets.\n\nKey Contributions & Analytics:\n• Data Integration: Cleaned and structured multi-store transactional data via Power Query.\n• Dashboard Design: Built interactive Power BI KPI cards and dynamic regional slicers.\n• Business Insights: Evaluated store-level revenue targets and product preference trends.",
+                visualBg: "bg-espressoText",
+                visualBadge: "Power BI & Business Intelligence",
+                visualHeadline: "CHAINEST CAFÉS (2025)",
+                visualSub: "QSR Expansion & Localized Menu Strategy Analysis"
+            }
+        };
+
+        const projectOrder = ['p1', 'p2', 'p3', 'p4', 'p5'];
+
+        function filterProjects(filterId) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                if (btn.getAttribute('data-filter') === filterId) {
+                    btn.classList.add('bg-espressoText', 'text-creamBg');
+                    btn.classList.remove('bg-creamBg', 'text-espressoText');
+                } else {
+                    btn.classList.remove('bg-espressoText', 'text-creamBg');
+                    btn.classList.add('bg-creamBg', 'text-espressoText');
+                }
+            });
+
+            const cards = document.querySelectorAll('.project-card');
+            cards.forEach(card => {
+                const pId = card.getAttribute('data-project');
+                if (filterId === 'all' || filterId === pId) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function openProjectModal(projectId) {
+            const data = projectData[projectId];
+            if (!data) return;
+
+            document.getElementById('modal-tag').textContent = data.tag;
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-description').innerHTML = data.description.replace(/\n/g, '<br>');
+
+            const visualEl = document.getElementById('modal-visual');
+            visualEl.innerHTML = `
+                <div class="relative z-10">
+                    <span class="inline-block px-3 py-1 rounded-lg bg-white/20 backdrop-blur-md text-[11px] font-semibold uppercase tracking-wider text-white mb-3">
+                        ${data.visualBadge}
+                    </span>
+                    <h4 class="font-serif text-2xl sm:text-3xl font-bold text-white mb-1.5">${data.visualHeadline}</h4>
+                    <p class="text-xs sm:text-sm text-sandBorder">${data.visualSub}</p>
+                </div>
+            `;
+
+            const idx = projectOrder.indexOf(projectId);
+            const prevIdx = (idx - 1 + projectOrder.length) % projectOrder.length;
+            const nextIdx = (idx + 1) % projectOrder.length;
+
+            document.getElementById('modal-prev-btn').onclick = () => openProjectModal(projectOrder[prevIdx]);
+            document.getElementById('modal-next-btn').onclick = () => openProjectModal(projectOrder[nextIdx]);
+
+            const modal = document.getElementById('project-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProjectModal() {
+            const modal = document.getElementById('project-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        function openResumeModal() {
+            const modal = document.getElementById('resume-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeResumeModal() {
+            const modal = document.getElementById('resume-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        function printResume() {
+            window.print();
+        }
+
+        function downloadResumeText() {
+            const textContent = `YASHASHVI
+BBA Honours Student | Digital Content Creator & Business Strategist at TAPMI Bengaluru
+Phone: +91 7004357381 | Bengaluru, Karnataka | Email: yashashvi.tapmiblr2026@learner.manipal.edu | Instagram: @yashashvisharan (4.6M+ views, 5K+ followers)
+
+EDUCATION
+- T. A. Pai Management Institute (TAPMI), Bengaluru: Undergraduate First Year Student - Bachelor of Business Administration (BBA Honours) | 2024 - Present
+- Carmel Junior College, Jamshedpur: Class 12th ISC (Pure Science): 90.4% | Class 10th ICSE: 89.9%
+
+EXPERIENCE, LEADERSHIP AND CAMPUS INVOLVEMENT
+- Carmel Junior College Student Governance (House Captain, President Electoral Literacy Club, Vice President Science Club)
+- TAPMI Bengaluru (Group 10 Lead & Dance Club Member)
+- InAmigos Foundation (Social Impact & Research Intern)
+
+KEY PROJECTS AND ANALYTICS
+- ChaiNest Cafés — QSR Expansion & Localized Menu Strategy Analysis
+- EduGuard AI Student Retention Agent & Early Warning System
+- Barbeque Nation — Customer Experience & Loyalty Optimization Analysis
+- "From Algorithm to Appetite" — Documentary Concept Note & Field Study (Church Street, Indiranagar, Koramangala)
+- Alakh Pandey Rebranding — Rhetorical Analysis & Founder Persona
+
+TECHNICAL SKILLS AND CREATIVE PORTFOLIO
+- Business and Analytics: Data Modelling, Power BI, Advanced Excel (Power Query, Dashboards), Quantitative Analysis, Cost Optimisation, InAmigos Donor Retention Report.
+- Media and Production: Videography, Video Editing, Photography, Content Strategy, Visual Storytelling (4.6M+ views, 5K+ followers @yashashvisharan).
+- Performing Arts: Certified Junior Diploma in Synthesizer Division (First Division Honors, 5+ yrs), Award-winning Traditional/Contemporary Dancer.`;
+
+            const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Yashashvi_Official_Resume.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+            showToast('Official resume downloaded as text file!');
+        }
+
+        document.getElementById('project-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'project-modal') closeProjectModal();
+        });
+
+        document.getElementById('resume-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'resume-modal') closeResumeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeProjectModal();
+                closeResumeModal();
+            }
+        });
+
+        function copyText(text, message) {
+            try {
+                const tempInput = document.createElement('textarea');
+                tempInput.value = text;
+                tempInput.style.position = 'fixed';
+                tempInput.style.opacity = '0';
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                showToast(message);
+            } catch (err) {
+                showToast('Copied: ' + text);
+            }
+        }
+
+        let toastTimeout;
+        function showToast(msg) {
+            const banner = document.getElementById('toast-banner');
+            const msgEl = document.getElementById('toast-message');
+            msgEl.textContent = msg;
+
+            banner.classList.remove('translate-y-24', 'opacity-0');
+            banner.classList.add('translate-y-0', 'opacity-100');
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                banner.classList.add('translate-y-24', 'opacity-0');
+                banner.classList.remove('translate-y-0', 'opacity-100');
+            }, 2600);
+        }
+    </script>
+</body>
+</html>
